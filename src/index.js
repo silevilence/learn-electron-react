@@ -10,6 +10,23 @@ function Square(props) {
     );
 }
 
+function HistoryItem(props) {
+    return (
+        props.selected ?
+            (
+                <li>
+                    <button onClick={props.onClick}><b>
+                        {props.desc}
+                    </b></button>
+                </li>
+            ) : (
+                <li>
+                    <button onClick={props.onClick}>{props.desc}</button>
+                </li>
+            )
+    );
+}
+
 class Board extends React.Component {
     renderSquare(i) {
         return (
@@ -97,9 +114,12 @@ class Game extends React.Component {
                 desc = 'Game Start';
             }
             return (
-                <li key={move}>
-                    <button onClick={() => this.jumpTo(move)}>{desc}</button>
-                </li>
+                <HistoryItem
+                    key={move}
+                    selected={move === this.state.stepNumber}
+                    onClick={() => this.jumpTo(move)}
+                    desc={desc}
+                />
             );
         })
 
